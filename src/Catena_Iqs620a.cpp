@@ -40,16 +40,13 @@ bool cIQS620A::begin()
     // No valid IC type found
     else
         {
-        Serial.println("Err invalid IC! Check wiring...");
-        while(1);
+        m_icType = noSensor;
         }
 
     setTimer(&m_mainTimer);
 
     if (m_icType == IQS620n)
         {
-        Serial.println ("620n Found!");
-        delay(1000); //Wait here for device splash on serial
         // setup device
         res = configureIqs620n();
         }
@@ -66,6 +63,8 @@ bool cIQS620A::begin()
     // Initialise Mode timer
     m_errorTimer.Timer_counter = THREE_SEC;       // 3s timer
     m_mainTimer.Timer_counter = ONE_SEC;          // 1s timer
+
+	return m_icType;
     }
 
 uint8_t cIQS620A::configureIqs620n()

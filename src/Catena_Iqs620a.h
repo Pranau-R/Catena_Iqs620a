@@ -242,6 +242,7 @@ const static uint8_t nDevSetup[] = {
 // Enum to determine what to show on screen
 typedef enum IC_Type
     {
+    noSensor = 0,
     IQS620n = 1
     } IC_Type_e;
 
