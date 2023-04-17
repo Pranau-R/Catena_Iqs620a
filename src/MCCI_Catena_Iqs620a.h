@@ -1,6 +1,6 @@
 /*
 
-Module: Catena_Iqs620a.h
+Module: MCCI_Catena_Iqs620a.h
 
 Function:
     Top-level include file for MCCI Catena IQS620A library (simple).
@@ -9,14 +9,17 @@ Copyright and License:
     See accompanying LICENSE file for copyright and license information.
 
 Author:
-    Pranau R, MCCI Corporation   March 2023
+    Pranau R, MCCI Corporation   April 2023
 
 */
 
-#ifndef CATENA_IQS620A_H
-#define CATENA_IQS620A_H
+#ifndef MCCI_CATENA_IQS620A_H
+#define MCCI_CATENA_IQS620A_H
 
 #include <Arduino.h>
+
+/// \brief namespace for this library
+namespace McciCatenaIqs620a {
 
 /*  Global defines      ----------------------------------------------------------*/
 
@@ -271,7 +274,6 @@ typedef union
     // Bitfield for System Flags
     struct
         {
-
         uint8_t NpSegmentActive     :1;
         uint8_t Event               :1;
         uint8_t InAti               :1;
@@ -322,10 +324,12 @@ public:
 
     bool readRegisters(uint16_t command, std::uint8_t *pBuffer, size_t nBuffer);
 
+    // get SAR Count
     int16_t getSarCountCh0();
     int16_t getSarCountCh1();
     int16_t getSarCountCh2();
 
+    // get Hall Effect Amplitude
     int16_t getAmplitude();
 
 private:
@@ -345,4 +349,6 @@ private:
     Timer_t m_mainTimer           = {0};          // Error Timer
     };
 
-#endif /* _CATENA_IQS620A_H_ */
+} // end namespace McciCatenaIqs620a
+
+#endif /* _MCCI_CATENA_IQS620A_H_ */
