@@ -1,6 +1,6 @@
 /*
 
-Module: Catena_Iqs620a.cpp
+Module: MCCI_Catena_Iqs620a.cpp
 
 Function:
     Implementation code for MCCI Catena IQS620A sensor library (simple).
@@ -9,12 +9,14 @@ Copyright and License:
     See accompanying LICENSE file for copyright and license information.
 
 Author:
-    Pranau R, MCCI Corporation   March 2023
+    Pranau R, MCCI Corporation   April 2023
 
 */
 
-#include "Catena_Iqs620a.h"
+#include "MCCI_Catena_Iqs620a.h"
 #include <Wire.h>
+
+using namespace McciCatenaIqs620a;
 
 cIQS620A::cIQS620A()
     {
@@ -257,3 +259,5 @@ bool cIQS620A::timerExpired(Timer_t* timer)
     // Return the state of this timer
     return timer->TimerExpired;
     }
+
+/**** end of MCCI_Catena_Iqs620a.cpp ****/
