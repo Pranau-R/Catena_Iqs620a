@@ -73,23 +73,89 @@ uint8_t cIQS620A::configureIqs620n()
     {
     uint8_t res = 0;
 
-    res |= writeRegister(DEV_SETTINGS, (uint8_t *)nDevSetup);
+    /* Change the Device & PMU Settings */
+    /* Memory Map Position 0xD0 - 0xD7 */
+    res |= writeRegister(DEV_SETTINGS,                      (uint8_t)nSYSTEM_SETTINGS);
+    res |= writeRegister(ACTIVE_CHANNELS,                   (uint8_t)nACTIVE_CHS);
+    res |= writeRegister(POWER_MODE_SETTINGS,               (uint8_t)nPMU_SETTINGS);
+    res |= writeRegister(NORMAL_MODE_REPORT_RATE,           (uint8_t)nREPORT_RATES_TIMINGS_0);
+    res |= writeRegister(lOW_POWER_MODE_REPORT_RATE,        (uint8_t)nREPORT_RATES_TIMINGS_1);
+    res |= writeRegister(ULTRA_LOW_POWER_MODE_REPORT_RATE,  (uint8_t)nREPORT_RATES_TIMINGS_2);
+    res |= writeRegister(AUTO_MODE_TIME,                    (uint8_t)nREPORT_RATES_TIMINGS_3);
+    res |= writeRegister(GLOBAL_EVENT_MASK,                 (uint8_t)nGLOBAL_EVENT_MASK);
+    res |= writeRegister(PWM_DUTY_CYCLE,                    (uint8_t)nPWM_DUTY_CYCLE);
 
-    res |= writeRegister(PXS_SETTINGS_0, (uint8_t *)nPXS_Setup_0);
+    /* Configure the Prox Sensor Settings 0 */
+    /* Memory Map Position 0x40 - 0x4B */
+    res |= writeRegister(PXS_SETTINGS_0_0, (uint8_t)nPXS_SETTINGS0_0);
+    res |= writeRegister(PXS_SETTINGS_0_1, (uint8_t)nPXS_SETTINGS0_1);
+    res |= writeRegister(PXS_SETTINGS_0_2, (uint8_t)nPXS_SETTINGS0_2);
+    res |= writeRegister(PXS_SETTINGS_0_3, (uint8_t)nPXS_SETTINGS0_3);
+    res |= writeRegister(PXS_SETTINGS_0_4, (uint8_t)nPXS_SETTINGS0_4);
+    res |= writeRegister(PXS_SETTINGS_0_5, (uint8_t)nPXS_SETTINGS0_5);
+    res |= writeRegister(PXS_SETTINGS_0_6, (uint8_t)nPXS_SETTINGS0_6);
+    res |= writeRegister(PXS_SETTINGS_0_7, (uint8_t)nPXS_SETTINGS0_7);
+    res |= writeRegister(PXS_SETTINGS_0_8, (uint8_t)nPXS_SETTINGS0_8);
+    res |= writeRegister(PXS_SETTINGS_0_9, (uint8_t)nPXS_SETTINGS0_9);
+    res |= writeRegister(PXS_SETTINGS_0_10, (uint8_t)nPXS_SETTINGS0_10);
+    res |= writeRegister(PXS_SETTINGS_0_11, (uint8_t)nPXS_SETTINGS0_11);
 
-    res |= writeRegister(PXS_SETTINGS_1, (uint8_t *)nPXS);
+    /* Configure the Prox Sensor Settings 1 */
+    /* Memory Map Position 0x50 - 0x57 */
+    res |= writeRegister(PXS_SETTINGS_1_0, (uint8_t)nPXS_SETTINGS1_0);
+    res |= writeRegister(PXS_SETTINGS_1_1, (uint8_t)nPXS_SETTINGS1_1);
+    res |= writeRegister(PXS_SETTINGS_1_2, (uint8_t)nPXS_SETTINGS1_2);
+    res |= writeRegister(PXS_SETTINGS_1_3, (uint8_t)nPXS_SETTINGS1_3);
+    res |= writeRegister(PXS_SETTINGS_1_4, (uint8_t)nPXS_SETTINGS1_4);
+    res |= writeRegister(PXS_SETTINGS_1_5, (uint8_t)nPXS_SETTINGS1_5);
+    res |= writeRegister(PXS_SETTINGS_1_6, (uint8_t)nPXS_SETTINGS1_6);
+    res |= writeRegister(PXS_SETTINGS_1_7, (uint8_t)nPXS_SETTINGS1_7);
 
-    res |= writeRegister(PXS_UI_SETTINGS, (uint8_t *)nPXSUi);
+    /* Change the Prox UI Settings */
+    /* Memory Map Position 0x60 - 0x66 */
+    res |= writeRegister(PXS_UI_SETTINGS_0, (uint8_t)nPXS_UI_SETTINGS_0);
+    res |= writeRegister(PXS_UI_SETTINGS_1, (uint8_t)nPXS_UI_SETTINGS_1);
+    res |= writeRegister(PXS_UI_SETTINGS_2, (uint8_t)nPXS_UI_SETTINGS_2);
+    res |= writeRegister(PXS_UI_SETTINGS_3, (uint8_t)nPXS_UI_SETTINGS_3);
+    res |= writeRegister(PXS_UI_SETTINGS_4, (uint8_t)nPXS_UI_SETTINGS_4);
+    res |= writeRegister(PXS_UI_SETTINGS_5, (uint8_t)nPXS_UI_SETTINGS_5);
+    res |= writeRegister(PXS_UI_SETTINGS_6, (uint8_t)nPXS_UI_SETTINGS_6);
 
-    res |= writeRegister(SAR_UI_SETTINGS, (uint8_t *)nSARUi);
+    /* Configure the SAR UI Settings */ // Uncomment this configuration if using SAR UI
+    /* Memory Map Position 0x70 - 0x75 */
+    // res |= writeRegister(SAR_UI_SETTINGS_0, (uint8_t)nSAR_UI_SETTINGS_0);
+    // res |= writeRegister(SAR_UI_SETTINGS_1, (uint8_t)nSAR_UI_SETTINGS_1);
+    // res |= writeRegister(SAR_UI_SETTINGS_2, (uint8_t)nSAR_UI_SETTINGS_2);
+    // res |= writeRegister(SAR_UI_SETTINGS_3, (uint8_t)nSAR_UI_SETTINGS_3);
+    // res |= writeRegister(SAR_UI_SETTINGS_4, (uint8_t)nSAR_UI_SETTINGS_4);
+    // res |= writeRegister(SAR_UI_SETTINGS_5, (uint8_t)nSAR_UI_SETTINGS_5);
 
-    res |= writeRegister(METAL_UI_SETTINGS, (uint8_t *)nMetalDetect);
+    /* Change the Metal Detect UI Settings */
+    /* Memory Map Position 0x80 - 0x83 */
+    res |= writeRegister(METAL_UI_SETTINGS_0, (uint8_t)nMETAL_DETECT_UI_SETTINGS_0);
+    res |= writeRegister(METAL_UI_SETTINGS_1, (uint8_t)nMETAL_DETECT_UI_SETTINGS_1);
+    res |= writeRegister(METAL_UI_SETTINGS_2, (uint8_t)nMETAL_DETECT_UI_SETTINGS_2);
+    res |= writeRegister(METAL_UI_SETTINGS_3, (uint8_t)nMETAL_DETECT_UI_SETTINGS_3);
 
-    res |= writeRegister(HALL_SENS_SETTINGS, (uint8_t *)nHall_Sens);
+    /* Change the HALL Sensor Settings */
+    /* Memory Map Position 0x90 - 0x93 */
+    res |= writeRegister(HALL_SENS_SETTINGS_0, (uint8_t)nHALL_SENSOR_SETTINGS_0);
+    res |= writeRegister(HALL_SENS_SETTINGS_1, (uint8_t)nHALL_SENSOR_SETTINGS_1);
+    res |= writeRegister(HALL_SENS_SETTINGS_2, (uint8_t)nHALL_SENSOR_SETTINGS_2);
+    res |= writeRegister(HALL_SENS_SETTINGS_3, (uint8_t)nHALL_SENSOR_SETTINGS_3);
 
-    res |= writeRegister(HALL_UI_SETTINGS, (uint8_t *)nHall_UI);
+    /* Change the HALL Switch UI Settings */
+    /* Memory Map Position 0xA0 - 0xA2 */
+    res |= writeRegister(HALL_UI_SETTINGS_0, (uint8_t)nHALL_UI_SETTINGS_0);
+    res |= writeRegister(HALL_UI_SETTINGS_1, (uint8_t)nHALL_UI_SETTINGS_1);
+    res |= writeRegister(HALL_UI_SETTINGS_2, (uint8_t)nHALL_UI_SETTINGS_2);
 
-    res |= writeRegister(TEMP_UI_SETTINGS, (uint8_t *)nTemp_UI);
+    /* Change the Temperature UI Settings */
+    /* Memory Map Position 0xC0 - 0xC3 */
+    res |= writeRegister(TEMP_UI_SETTINGS_0, (uint8_t)nTEMP_UI_SETTINGS_0);
+    res |= writeRegister(TEMP_UI_SETTINGS_1, (uint8_t)nTEMP_UI_SETTINGS_1);
+    res |= writeRegister(TEMP_UI_SETTINGS_2, (uint8_t)nTEMP_UI_SETTINGS_2);
+    res |= writeRegister(TEMP_UI_SETTINGS_3, (uint8_t)nTEMP_UI_SETTINGS_3);
 
     // Wait for Redo Ati to complete
     do
@@ -99,6 +165,48 @@ uint8_t cIQS620A::configureIqs620n()
     while (!res && m_iqs620n.SystemFlags.InAti);
 
     return res;
+    }
+
+bool cIQS620A::isIqsReady()
+    {
+    if (digitalRead(this->m_rdyPin) == 0)
+        {
+        return true;
+        }
+    else
+        {
+        return false;
+        }
+    }
+
+// wait for IQS620A to provide a ready signal (low) on IQS620A RDY pin
+bool cIQS620A::waitForIqsReady()
+    {
+    uint32_t timeout=0;
+    while (1)
+        {
+        if(digitalRead(this->m_rdyPin) == 1)
+            break;
+        if (timeout++ > 1000000)
+            goto fatal_error;
+        }
+    timeout=0;
+    while (1) {
+        if(digitalRead(this->m_rdyPin) ==0 )
+            break;
+        if (timeout++ > 1000000)
+            goto fatal_error;
+    }
+    return true;
+fatal_error:
+    Serial.println("Fatal Error: IQS620A ready pin is not toggling");
+    return false;
+    }
+
+void cIQS620A::setRdyPin(int rdyPin)
+    {
+    this->m_rdyPin = rdyPin;
+    pinMode(this->m_rdyPin, INPUT_PULLUP);
     }
 
 uint8_t cIQS620A::iqsRead()
@@ -114,19 +222,19 @@ uint8_t cIQS620A::iqsRead()
         res |= readRegisters(SYSTEM_FLAGS, &m_iqs620n.SystemFlags.SystemFlags, sizeof(&m_iqs620n.SystemFlags.SystemFlags));
 
         // Read PXS Channel 0 Data - 12 bytes
-        res |= readRegisters(CHANNEL0_DATA, &m_iqs620n.Ch[0].Ch_Low, sizeof(&m_iqs620n.Ch[0].Ch_Low));
+        res |= readRegisters(CHANNEL0_CS_LOW, &m_iqs620n.Ch[0].Ch_Low, sizeof(&m_iqs620n.Ch[0].Ch_Low));
 
         // Read channel 1 for SAR
-        res |= readRegisters(CHANNEL1_DATA, &m_iqs620n.Ch[1].Ch_Low, sizeof(&m_iqs620n.Ch[1].Ch_Low));
+        res |= readRegisters(CHANNEL1_CS_LOW, &m_iqs620n.Ch[1].Ch_Low, sizeof(&m_iqs620n.Ch[1].Ch_Low));
 
         // Read channel 2 for SAR
-        res |= readRegisters(CHANNEL2_DATA, &m_iqs620n.Ch[2].Ch_Low, sizeof(&m_iqs620n.Ch[2].Ch_Low));
+        res |= readRegisters(CHANNEL2_CS_LOW, &m_iqs620n.Ch[2].Ch_Low, sizeof(&m_iqs620n.Ch[2].Ch_Low));
 
         // Read channel 4 for SAR
-        res |= readRegisters(CHANNEL4_DATA, &m_iqs620n.Ch[4].Ch_Low, sizeof(&m_iqs620n.Ch[4].Ch_Low));
+        res |= readRegisters(CHANNEL4_CS_LOW, &m_iqs620n.Ch[4].Ch_Low, sizeof(&m_iqs620n.Ch[4].Ch_Low));
 
         // Read channel 5 for SAR
-        res |= readRegisters(CHANNEL5_DATA, &m_iqs620n.Ch[5].Ch_Low, sizeof(&m_iqs620n.Ch[5].Ch_Low));
+        res |= readRegisters(CHANNEL5_CS_LOW, &m_iqs620n.Ch[5].Ch_Low, sizeof(&m_iqs620n.Ch[5].Ch_Low));
         }
 
     // A read error occurred
@@ -148,17 +256,11 @@ uint8_t cIQS620A::iqsRead()
         }
     }
 
-bool cIQS620A::writeRegister(uint16_t command, uint8_t* pData)
+bool cIQS620A::writeRegister(uint16_t reg, uint8_t pData)
     {
     Wire.beginTransmission((uint8_t) Address::IQS620n);
-    Wire.write(command);
-
-    // No send the number of bytes required to write
-    for(uint8_t i = 0; (i < sizeof(pData)); i++)
-        {
-        // Send each required byte
-        Wire.write(pData[i]);
-        }
+    Wire.write(reg);
+    Wire.write(pData);
 
     if (Wire.endTransmission() != 0)
         {
@@ -168,7 +270,7 @@ bool cIQS620A::writeRegister(uint16_t command, uint8_t* pData)
     return true;
     }
 
-bool cIQS620A::readRegisters(uint16_t command, std::uint8_t *pBuffer, size_t nBuffer)
+bool cIQS620A::readRegisters(uint16_t reg, std::uint8_t *pBuffer, size_t nBuffer)
     {
     if (pBuffer == nullptr || nBuffer > 32)
         {
@@ -176,7 +278,7 @@ bool cIQS620A::readRegisters(uint16_t command, std::uint8_t *pBuffer, size_t nBu
         }
 
     Wire.beginTransmission((uint8_t) Address::IQS620n);
-    if (Wire.write((uint8_t)command) != 1)
+    if (Wire.write((uint8_t)reg) != 1)
         {
         return false;
         }
@@ -212,17 +314,17 @@ bool cIQS620A::readRegisters(uint16_t command, std::uint8_t *pBuffer, size_t nBu
     return true;
     }
 
-int16_t cIQS620A::getSarCountCh0()
+int16_t cIQS620A::getCh0Data()
     {
     return m_iqs620n.Ch[0].Ch;    // return Channel Data
     }
 
-int16_t cIQS620A::getSarCountCh1()
+int16_t cIQS620A::getCh1Data()
     {
     return m_iqs620n.Ch[1].Ch;    // return Channel Data
     }
 
-int16_t cIQS620A::getSarCountCh2()
+int16_t cIQS620A::getCh2Data()
     {
     return m_iqs620n.Ch[2].Ch;    // return Channel Data
     }
